@@ -1,69 +1,219 @@
-updating...
+<div align="center">
 
-<!-- #### Paid unpatched viewbot for 24.99€ !!: https://onlp.sellix.io or in dc server 
-repo works again, maybe needs proxies but here you go -->
-
-<h2 align="center">server: <a href="https://discord.gg/onlp">discord.gg/onlp</a></h2>
-
-<!--
-<p align="center">
-400 followers / 500 stars = leaked unpatched viewbot 1k/s
-</p>
-
-
-&emsp;
-
-<h2 align="center">tutorial: <a href="https://www.youtube.com/watch?v=x97aLsPSJtQ">youtube.com/watch?v=x97aLsPSJtQ</a></h2>
-
-<!--
-<p align="center">
-<del>100 stars = captcha solver</del>
-</p><p align="center">
-<del>170 stars = open source solver</del>
-</p><p align="center">
-200 stars = viewbot in golang + proxy support + bot multiple videos same time (SOON, on vacation rn so can't release)
-</p><p align="center">
-250 stars = viewbot using freer api (2x faster)
-</p><p align="center">
-500 stars = unpatched viewbot using real tiktok api
-</p>
--->
-
-<!--
-
-<p align="center"> 
-<img src="https://global.tiktokworld21.com/images/TT_Logo.png"></img>
-</p>
-
--->
-
-<p align="center"> 
-<img src="https://cdn.discordapp.com/attachments/979095432682676264/996481048605106186/unknown.png"></img>
-</p>
-
-skids:
 ```
-  https://github.com/XNorealsS/tiktokbot-view
-  https://github.com/haphucduy28/1/blob/main/viewtiktok.py
+  ████████╗██╗  ██╗██╗   ██╗██╗███████╗██╗    ██╗███████╗
+  ╚══██╔══╝██║ ██╔╝██║   ██║██║██╔════╝██║    ██║██╔════╝
+     ██║   █████╔╝ ██║   ██║██║███████╗██║ █╗ ██║███████╗
+     ██║   ██╔═██╗ ╚██╗ ██╔╝██║╚════██║██║███╗██║╚════██║
+     ██║   ██║  ██╗ ╚████╔╝ ██║███████║╚███╔███╔╝███████║
+     ╚═╝   ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝ ╚══════╝
+         🎯 TikTok Viewbot — Auto Proxy · Multi-Thread
 ```
 
-How to run:
+### 🎯 TikTok Viewbot — Auto Proxy · Multi-Thread · Zero Signature
+
+[![Python](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge&logo=open-source-initiative&logoColor=white)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20Mac-inactive?style=for-the-badge&logo=linux&logoColor=white)]()
+
+</div>
+
+---
+
+## ✨ Fitur Utama
+
+| Fitur | Deskripsi |
+|:------|:----------|
+| 🔄 **Auto-Proxy** | Otomatis fetch & validasi proxy dari GitHub setiap dijalankan |
+| 🧵 **Multi-Thread** | Hingga 100 thread paralel untuk pengiriman views |
+| 🛡️ **Proxy Fallback** | Otomatis retry tanpa proxy jika proxy gagal |
+| 📱 **Updated UA** | User-Agent TikTok versi terbaru (2023.10) |
+| 🎯 **Multi-Endpoint** | 4 endpoint TikTok API dengan rotasi otomatis |
+| 📊 **Real-time Stats** | Monitor RPS (Request Per Second) dan RPM secara live |
+| 🔒 **Zero Signature** | Tidak butuh Gorgon/X-Bogus — langsung jalan |
+
+---
+
+## 📸 Preview
+
 ```
-  1. Verify that you have pip and python installed => https://www.youtube.com/watch?v=dYfKJMPNMDw
-  2. Run this command in cmd: pip install requests bs4 cursor pystyle pillow
-  3. replace the video id in config.json by yours
-  4. run the python file by double clicking on it or type: python viewbot.py
+╦  ╦╦╔═╗╦ ╦╔╗ ╔═╗╔╦╗
+╚╗╔╝║║╣ ║║║╠╩╗║ ║ ║
+ ╚╝ ╩╚═╝╚╩╝╚═╝╚═╝ ╩
+  TikTok Viewbot v2.1
+  Fixed — Updated UA + Headers
+
+  🎯 Target video ID: 7586933665398131988
+  🚀 Memulai proses...
+
+  📋 90 valid devices loaded
+  📋 128 proxy siap digunakan!
+
+  ✅ View OK — 20260623064024AE404DE9CAFD0722FFE6 | total: 1
+  ✅ View OK — 202606230640259AB82B27ED4F2022B6A3 | total: 2
+  ✅ View OK — 20260623064027365DB53079417B0C8A89 | total: 3
 ```
 
-Advantages:
+---
+
+## 🚀 Instalasi
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/clickmamaheti-prog/TkViews.git
+cd TkViews
 ```
-  1.  fast, easy
-  2.  lightweight
-  3.  Has dynamic views count running on TikTok API
-  4.  mobile users can run it
+
+### 2. Install Dependencies
+
+```bash
+pip3 install requests
 ```
-To come:
+
+> 📌 **Catatan:** Tidak butuh `pystyle`, `playwright`, atau `tesseract` — bot ini **ringan** dan **tanpa signature**.
+
+### 3. (Opsional) Jalankan dengan Proxy
+
+```bash
+# Edit config.json jika ingin menggunakan proxy
+nano config.json
 ```
-  1. Proxy support
-  3. Bot using freer api so 2x faster (freer api is gay)
+
+---
+
+## 🎮 Cara Menjalankan
+
+### Langkah 1 — Masuk ke Folder
+
+```bash
+cd TkViews
 ```
+
+### Langkah 2 — Jalankan Bot
+
+```bash
+python3 bot_final.py
+```
+
+### Langkah 3 — Input Link TikTok
+
+```
+  🔗 Input video link: https://www.tiktok.com/@tizar110/video/7586933665398131988
+```
+
+### Langkah 4 — Views Terkirim! ✅
+
+```
+  ✅ View OK — 20260623064024AE404DE9CAFD0722FFE6 | total: 1
+  ✅ View OK — 202606230640259AB82B27ED4F2022B6A3 | total: 2
+  ✅ View OK — 20260623064027365DB53079417B0C8A89 | total: 3
+```
+
+---
+
+## 📂 Struktur File
+
+```
+TkViews/
+├── 📄 bot_final.py          ← ✅ Bot utama (v2.1 — Working)
+├── 📄 bot.py                ← Bot original (dengan Gorgon)
+├── 📄 bot_auto_proxy.py     ← Bot auto-fetch proxy
+├── 📄 proxy_updater.py       ← Update proxy berkala
+├── 📄 devices.txt            ← 90 device IDs
+├── 📄 proxies.txt            ← 128 active proxies
+├── 📄 config.json            ← Konfigurasi proxy
+├── 📄 LICENSE                ← MIT License
+├── 📄 README.md              ← File ini
+└── 📁 to update/             ← File original (viewbot.py, mobile, golang)
+```
+
+---
+
+## ⚙️ Konfigurasi
+
+Edit `config.json` untuk mengatur proxy:
+
+```json
+{
+  "proxy": {
+    "use-proxy": true,
+    "proxy-type": "http",
+    "auth": false,
+    "credential": ""
+  }
+}
+```
+
+| Parameter | Deskripsi | Default |
+|:----------|:----------|:--------|
+| `use-proxy` | Aktifkan/nonaktifkan proxy | `true` |
+| `proxy-type` | Tipe proxy (`http` / `socks5`) | `http` |
+| `auth` | Gunakan autentikasi proxy | `false` |
+| `credential` | Username:Password proxy | `""` |
+
+---
+
+## 🔧 Troubleshooting
+
+| Masalah | Solusi |
+|:--------|:-------|
+| ❌ `ModuleNotFoundError: requests` | `pip3 install requests` |
+| ❌ `Connection timed out` | Proxy mati — bot otomatis retry tanpa proxy |
+| ❌ `Invalid link` | Pastikan link TikTok valid atau gunakan video ID langsung |
+| ⚠️ Banyak fails | Proxy banyak mati — jalankan ulang untuk fetch proxy baru |
+
+---
+
+## 📊 Cara Kerja
+
+```
+┌─────────────────────────────────────────────────┐
+│                  TkViews v2.1                    │
+├─────────────────────────────────────────────────┤
+│                                                  │
+│  1️⃣  Input URL TikTok                            │
+│         ↓                                        │
+│  2️⃣  Extract Video ID (18-19 digit)              │
+│         ↓                                        │
+│  3️⃣  Fetch & Validasi Proxy dari GitHub          │
+│         ↓                                        │
+│  4️⃣  Load Device IDs (90 devices)                │
+│         ↓                                        │
+│  5️⃣  Spawn Multi-Thread (max 100)                │
+│         ↓                                        │
+│  6️⃣  Kirim Request ke TikTok API                 │
+│      ├─ Dengan proxy → OK ✅                     │
+│      └─ Proxy gagal → Retry tanpa proxy ✅       │
+│         ↓                                        │
+│  7️⃣  Monitor RPS/RPM Real-time                   │
+│                                                  │
+└─────────────────────────────────────────────────┘
+```
+
+---
+
+## ⚠️ Disclaimer
+
+> **Gunakan dengan bijak.** Spam request dapat menyebabkan:
+> - Device ID diblokir TikTok
+> - IP diblokir TikTok
+> - Akun TikTok dibanned
+>
+> **Author tidak bertanggung jawab atas penyalahgunaan ini.**
+
+---
+
+## 📜 License
+
+MIT License — Lihat [LICENSE](LICENSE) untuk detail.
+
+---
+
+<div align="center">
+
+**Dibuat dengan ❤️ oleh [clickmamaheti-prog](https://github.com/clickmamaheti-prog)**
+
+[![GitHub followers](https://img.shields.io/github/followers/clickmamaheti-prog?style=social)](https://github.com/clickmamaheti-prog)
+
+</div>

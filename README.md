@@ -124,6 +124,37 @@ nano config.json
 
 ---
 
+## 🔄 Update ke Versi Terbaru
+
+> **Punya repo lama?** Langsung update satu perintah — tampilan baru, fiture baru, semua otomatis!
+
+### ⚡ Opsi 1 — Auto-Updater (Rekomendasi)
+
+```bash
+curl -sSL https://raw.githubusercontent.com/clickmamaheti-prog/TkViews/master/update.sh | bash
+```
+
+> 📌 Script otomatis:
+> - 🔍 Deteksi repo lama
+> - 📥 Git pull dari GitHub (kode terbaru)
+> - 📦 Update dependencies
+> - 📋 Tampilkan changelog
+> - 🚀 Jalankan bot setelah update
+
+### ⚡ Opsi 2 — Satu Perintah Manual
+
+```bash
+cd TkViews && git pull origin master && python3 bot_final.py
+```
+
+### ⚡ Opsi 3 — Hapus & Clone Ulang (Clean Install)
+
+```bash
+rm -rf TkViews && git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && python3 bot_final.py
+```
+
+---
+
 ## 📂 Struktur File
 
 ```
@@ -132,6 +163,8 @@ TkViews/
 ├── 📄 bot.py                ← Bot original (dengan Gorgon)
 ├── 📄 bot_auto_proxy.py     ← Bot auto-fetch proxy
 ├── 📄 proxy_updater.py       ← Update proxy berkala
+├── 📄 install.sh             ← 🚀 Auto-installer (baru)
+├── 📄 update.sh             ← 🔄 Auto-updater (baru)
 ├── 📄 devices.txt            ← 90 device IDs
 ├── 📄 proxies.txt            ← 128 active proxies
 ├── 📄 config.json            ← Konfigurasi proxy

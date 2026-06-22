@@ -56,58 +56,50 @@
 
 ---
 
-## 🚀 Instalasi
+## 🚀 Quick Start
 
-### 1. Clone Repository
-
-```bash
-git clone https://github.com/clickmamaheti-prog/TkViews.git
-cd TkViews
-```
-
-### 2. Install Dependencies
+### ⚡ Satu Perintah — Langsung Jalan!
 
 ```bash
-pip3 install requests
+git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && pip3 install requests && python3 bot_final.py
 ```
 
-> 📌 **Catatan:** Tidak butuh `pystyle`, `playwright`, atau `tesseract` — bot ini **ringan** dan **tanpa signature**.
+> 📌 **Satu klik, langsung jalan!** Tidak butuh `pystyle`, `playwright`, atau `tesseract` — bot ini **ringan** dan **tanpa signature**.
 
-### 3. (Opsional) Jalankan dengan Proxy
+### 📋 Apa yang Dilakukan Perintah Di Atas:
 
-```bash
-# Edit config.json jika ingin menggunakan proxy
-nano config.json
-```
+| # | Perintah | Fungsi |
+|:--|:---------|:-------|
+| 1 | `git clone ...` | Download repo TkViews |
+| 2 | `cd TkViews` | Masuk ke folder |
+| 3 | `pip3 install requests` | Install dependency |
+| 4 | `python3 bot_final.py` | Jalankan bot |
 
----
-
-## 🎮 Cara Menjalankan
-
-### Langkah 1 — Masuk ke Folder
-
-```bash
-cd TkViews
-```
-
-### Langkah 2 — Jalankan Bot
-
-```bash
-python3 bot_final.py
-```
-
-### Langkah 3 — Input Link TikTok
+### 🎯 Input Link TikTok
 
 ```
   🔗 Input video link: https://www.tiktok.com/@tizar110/video/7586933665398131988
 ```
 
-### Langkah 4 — Views Terkirim! ✅
+### ✅ Views Terkirim!
 
 ```
   ✅ View OK — 20260623064024AE404DE9CAFD0722FFE6 | total: 1
   ✅ View OK — 202606230640259AB82B27ED4F2022B6A3 | total: 2
   ✅ View OK — 20260623064027365DB53079417B0C8A89 | total: 3
+```
+
+### 🔄 Jalankan Ulang (Sudah Pernah Clone)
+
+```bash
+cd TkViews && python3 bot_final.py
+```
+
+### ⚙️ (Opsional) Aktifkan/Nonaktifkan Proxy
+
+```bash
+nano config.json
+# Ubah "use-proxy": true  (atau false untuk tanpa proxy)
 ```
 
 ---

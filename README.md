@@ -58,13 +58,24 @@
 
 ## 🚀 Quick Start
 
-### ⚡ Satu Perintah — Langsung Jalan!
+### ⚡ Opsi 1 — Auto-Installer (Rekomendasi)
+
+```bash
+curl -sSL https://raw.githubusercontent.com/clickmamaheti-prog/TkViews/master/install.sh | bash
+```
+
+> 📌 **Satu klik, langsung jalan!** Script otomatis:
+> - 🔍 Deteksi OS (Debian/Ubuntu, CentOS, Alpine, Mac)
+> - 📦 Install git, python3, pip (jika belum)
+> - 📥 Clone/update repo dari GitHub
+> - 📦 Install dependency (`requests`)
+> - 🚀 Jalankan bot
+
+### ⚡ Opsi 2 — Satu Perintah Manual
 
 ```bash
 git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && python3 -m pip install requests && python3 bot_final.py
 ```
-
-> 📌 **Satu klik, langsung jalan!** Tidak butuh `pystyle`, `playwright`, atau `tesseract` — bot ini **ringan** dan **tanpa signature**.
 
 ### 📋 Apa yang Dilakukan Perintah Di Atas:
 

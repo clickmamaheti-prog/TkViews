@@ -346,9 +346,59 @@ def cmd_update():
     """Update repo — shortcut: tkbot update"""
     SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
     os.chdir(SCRIPT_DIR)
-    os.system("git pull origin master 2>/dev/null || git pull origin main 2>/dev/null")
-    print(f"\n  {C.GREEN}✅ Update selesai!{C.RESET}")
-    print(f"  {C.DIM}Jalankan ulang: tkbot run{C.RESET}\n")
+
+    print()
+    box_top()
+    box_c(f"{C.BOLD}{C.HOT_PINK}  🔄 UPDATING TK VIEWS{C.RESET}")
+    box_mid()
+
+    # Get current hash
+    old_hash = os.popen("git rev-parse --short HEAD 2>/dev/null").read().strip()
+    box_l(f"{C.CYAN}📂{C.RESET} {C.WHITE}Current{C.RESET}  {C.BOLD}{old_hash}{C.RESET}")
+
+    # Pull
+    box_l(f"{C.YELLOW}🔄{C.RESET} {C.WHITE}Pulling dari GitHub...{C.RESET}")
+    pull_result = os.popen("git pull origin master 2>/dev/null || git pull origin main 2>/dev/null").read().strip()
+
+    new_hash = os.popen("git rev-parse --short HEAD 2>/dev/null").read().strip()
+
+    if old_hash == new_hash:
+        box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}Sudah versi terbaru!{C.RESET}")
+    else:
+        box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}Updated{C.RESET}  {C.BOLD}{old_hash} → {new_hash}{C.RESET}")
+
+        # Show changelog
+        box_mid()
+        box_l(f"{C.BOLD}{C.CYAN}  CHANGELOG:{C.RESET}")
+        commits = os.popen(f'git log --oneline "{old_hash}..{new_hash}" 2>/dev/null').read().strip()
+        if commits:
+            for line in commits.split('\n')[:10]:
+                box_l(f"  {C.DIM}{line}{C.RESET}")
+        else:
+            box_l(f"  {C.DIM}(detail lihat: git log){C.RESET}")
+
+        # Show files changed
+        files_changed = os.popen(f'git diff --name-only "{old_hash}..{new_hash}" 2>/dev/null').read().strip()
+        if files_changed:
+            box_mid()
+            box_l(f"{C.BOLD}{C.PINK}  FILES CHANGED:{C.RESET}")
+            for f in files_changed.split('\n')[:10]:
+                box_l(f"  {C.WHITE}{f}{C.RESET}")
+
+    # Update tkbot global command
+    box_mid()
+    box_l(f"{C.YELLOW}🔧{C.RESET} {C.WHITE}Updating tkbot command...{C.RESET}")
+    try:
+        # Copy updated tkbot.py to /usr/local/bin/
+        import shutil
+        shutil.copy2(os.path.join(SCRIPT_DIR, "tkbot.py"), "/usr/local/bin/tkbot")
+        os.chmod("/usr/local/bin/tkbot", 0o755)
+        box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot command updated{C.RESET}")
+    except:
+        box_l(f"{C.YELLOW}⚠️{C.RESET} {C.WHITE}Skip (need root for /usr/local/bin){C.RESET}")
+
+    box_bot()
+    print()
 
 def cmd_status():
     """Show status — shortcut: tkbot status"""

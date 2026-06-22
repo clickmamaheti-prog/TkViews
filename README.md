@@ -61,7 +61,7 @@
 ### ⚡ Satu Perintah — Langsung Jalan!
 
 ```bash
-git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && pip3 install requests && python3 bot_final.py
+git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && python3 -m pip install requests && python3 bot_final.py
 ```
 
 > 📌 **Satu klik, langsung jalan!** Tidak butuh `pystyle`, `playwright`, atau `tesseract` — bot ini **ringan** dan **tanpa signature**.
@@ -72,8 +72,17 @@ git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && pip
 |:--|:---------|:-------|
 | 1 | `git clone ...` | Download repo TkViews |
 | 2 | `cd TkViews` | Masuk ke folder |
-| 3 | `pip3 install requests` | Install dependency |
+| 3 | `python3 -m pip install requests` | Install dependency |
 | 4 | `python3 bot_final.py` | Jalankan bot |
+
+> 💡 **Tidak punya pip?** Coba salah satu:
+> ```bash
+> # Debian/Ubuntu
+> sudo apt update && sudo apt install -y python3-pip
+> 
+> # ATAU pakai ensurepip
+> python3 -m ensurepip --upgrade
+> ```
 
 ### 🎯 Input Link TikTok
 

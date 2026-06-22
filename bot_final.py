@@ -1,11 +1,11 @@
 # ============================================================
-# TikTok Viewbot v2.0 — Final Clean Version
-# Auto-proxy, multi-threaded, Gorgon signature
+# TikTok Viewbot v2.1 — Fixed & Working ✅
+# Auto-proxy, multi-threaded, updated UA + headers
 # ============================================================
 # Jangan spam — akan merusak devices dan pengalaman orang lain
 # ============================================================
 
-import base64, os, sys, ssl, re, time, random, threading, requests, hashlib, json, socket
+import os, sys, ssl, re, time, random, threading, requests, json, socket
 
 # ── Remote proxy source ──────────────────────────────────────
 PROXY_REMOTE_URL = "https://raw.githubusercontent.com/clickmamaheti-prog/TkViews/master/proxies.txt"
@@ -28,7 +28,7 @@ def auto_fetch_proxies():
         print(f"  ⚠️ Gagal fetch proxy: {e}")
         try:
             with open(PROXY_LOCAL_FILE) as f:
-                return f.read().splitlines()
+                return [l.strip() for l in f if l.strip() and ':' in l]
         except:
             return []
 
@@ -43,11 +43,11 @@ def validate_proxy(proxy):
     except:
         return False
 
-def validate_proxies_parallel(proxies, max_workers=50):
+def validate_proxies_parallel(proxy_list, max_workers=50):
     import concurrent.futures
     online = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as ex:
-        futs = {ex.submit(validate_proxy, p): p for p in proxies}
+        futs = {ex.submit(validate_proxy, p): p for p in proxy_list}
         for f in concurrent.futures.as_completed(futs):
             try:
                 if f.result():
@@ -55,58 +55,6 @@ def validate_proxies_parallel(proxies, max_workers=50):
             except:
                 pass
     return online
-
-# ── Gorgon signature ─────────────────────────────────────────
-class Gorgon:
-    def __init__(self, params, data, cookies, unix):
-        self.unix = unix; self.params = params; self.data = data; self.cookies = cookies
-
-    def hash(self, data):
-        try:    return str(hashlib.md5(data.encode()).hexdigest())
-        except: return str(hashlib.md5(data).hexdigest())
-
-    def get_base_string(self):
-        b = self.hash(self.params)
-        b += self.hash(self.data) if self.data else '0' * 32
-        b += self.hash(self.cookies) if self.cookies else '0' * 32
-        return b
-
-    def get_value(self):
-        return self.encrypt(self.get_base_string())
-
-    def encrypt(self, data):
-        unix = self.unix; ln = 20
-        key = [223,119,185,64,185,155,132,131,209,185,203,209,247,194,185,133,195,208,251,195]
-        pl = []
-        for i in range(0, 12, 4):
-            tmp = data[8*i:8*(i+1)]
-            for j in range(4):
-                pl.append(int(tmp[j*2:(j+1)*2], 16))
-        pl.extend([0, 6, 11, 28])
-        H = int(hex(unix), 16)
-        pl.extend([(H & 4278190080) >> 24, (H & 16711680) >> 16, (H & 65280) >> 8, H & 255])
-        eor = [a ^ b for a, b in zip(pl, key)]
-        for i in range(ln):
-            C = self.reverse(eor[i])
-            D = eor[(i + 1) % ln]
-            E = C ^ D
-            F = self.rbit_algorithm(E)
-            H2 = (F ^ 4294967295 ^ ln) & 255
-            eor[i] = H2
-        result = ''.join(self.hex_string(p) for p in eor)
-        return {'X-Gorgon': '0404b0d30000' + result, 'X-Khronos': str(unix)}
-
-    def rbit_algorithm(self, num):
-        s = bin(num)[2:].zfill(8)
-        return int(s[::-1], 2)
-
-    def hex_string(self, num):
-        s = hex(num)[2:]
-        return s if len(s) >= 2 else '0' + s
-
-    def reverse(self, num):
-        s = self.hex_string(num)
-        return int(s[1:] + s[:1], 16)
 
 # ── Suppress warnings ────────────────────────────────────────
 from urllib3.exceptions import InsecureRequestWarning
@@ -119,8 +67,33 @@ class BlockCookies(cookiejar.CookiePolicy):
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 ssl._create_default_https_context = ssl._create_unverified_context
 
-r = requests.Session()
-r.cookies.set_policy(BlockCookies())
+# ── API Endpoints ────────────────────────────────────────────
+API_ENDPOINTS = [
+    "https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/?",
+    "https://api21.tiktokv.com/aweme/v1/aweme/stats/?",
+    "https://api19-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/?",
+    "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/?",
+]
+
+# ── Updated User-Agent ───────────────────────────────────────
+def get_headers():
+    return {
+        'User-Agent': (
+            'com.zhiliaoapp.musically/2023100000 '
+            '(Linux; U; Android 13; en_US; Pixel 7; '
+            'Build/TQ3A.230805.001; '
+            'Cronet/TTNetVersion:8eac09b7 2023-07-03 '
+            'QuicVersion:6ea22060 2023-05-18)'
+        ),
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
+        'sdk-version': '2',
+        'x-ss-req-ticket': str(int(time.time() * 1000)),
+        'x-tt-store-regionc': 'US',
+        'x-tt-store-region-src': 'did',
+    }
 
 # ── Globals ──────────────────────────────────────────────────
 reqs = 0; success = 0; fails = 0; rpm = 0; rps = 0
@@ -129,37 +102,63 @@ _lock = threading.Lock()
 # ── Send views ───────────────────────────────────────────────
 def send(did, iid, cdid, openudid):
     global reqs, success, fails
-    for _ in range(10):
+    for attempt in range(10):
         try:
-            params  = (f"device_id={did}&iid={iid}&device_type=SM-G973N"
-                       f"&app_name=musically_go&host_abi=armeabi-v7a"
-                       f"&channel=googleplay&device_platform=android"
-                       f"&version_code=160904&device_brand=samsung"
-                       f"&os_version=9&aid=1340")
-            payload = f"item_id={__aweme_id}&play_delta=1"
-            sig     = Gorgon(params=params, cookies=None, data=None, unix=int(time.time())).get_value()
-
-            proxy = random.choice(proxies) if config['proxy']['use-proxy'] else ""
-            resp  = requests.post(
-                "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/?" + params,
-                data=payload,
-                headers={
-                    'cookie': 'sessionid=90c38a59d8076ea0fbc01c8643efbe47',
-                    'x-gorgon': sig['X-Gorgon'],
-                    'x-khronos': sig['X-Khronos'],
-                    'user-agent': 'okhttp/3.10.0.1'
-                },
-                verify=False,
-                proxies={"http": proxy_format + proxy, "https": proxy_format + proxy} if config['proxy']['use-proxy'] else {}
+            params = (
+                f"device_id={did}&iid={iid}&device_type=SM-G973N"
+                f"&app_name=musically_go&host_abi=armeabi-v7a"
+                f"&channel=googleplay&device_platform=android"
+                f"&version_code=160904&device_brand=samsung"
+                f"&os_version=9&aid=1340"
             )
+            payload = f"item_id={__aweme_id}&play_delta=1"
+            api_url = random.choice(API_ENDPOINTS) + params
+
+            # Try with proxy first, fallback to direct
+            proxy = ""
+            use_proxy = config['proxy']['use-proxy'] and proxies
+            if use_proxy:
+                proxy = random.choice(proxies)
+
+            proxy_dict = {}
+            if proxy:
+                proxy_dict = {"http": proxy_format + proxy, "https": proxy_format + proxy}
+
+            resp = requests.post(
+                api_url,
+                data=payload,
+                headers=get_headers(),
+                verify=False,
+                timeout=15,
+                proxies=proxy_dict
+            )
+
+            # If proxy failed (empty body), retry without proxy
+            if not resp.text.strip() and use_proxy:
+                resp = requests.post(
+                    api_url,
+                    data=payload,
+                    headers=get_headers(),
+                    verify=False,
+                    timeout=15
+                )
+
             reqs += 1
             try:
+                data = resp.json()
+                status = data.get('status_code', -1)
+                impr = data.get('log_pb', {}).get('impr_id', 'N/A')
                 _lock.acquire()
-                print(f"  ✅ View sent — {resp.json()['log_pb']['impr_id']} | total: {reqs}")
+                if status == 0:
+                    success += 1
+                    print(f"  ✅ View OK — {impr} | total: {reqs}")
+                else:
+                    fails += 1
+                    print(f"  ⚠️ Status {status} | fails: {fails}")
                 _lock.release()
-                success += 1
             except:
-                if _lock.locked(): _lock.release()
+                if _lock.locked():
+                    _lock.release()
                 fails += 1
         except:
             pass
@@ -180,8 +179,8 @@ if __name__ == "__main__":
 ╦  ╦╦╔═╗╦ ╦╔╗ ╔═╗╔╦╗
 ╚╗╔╝║║╣ ║║║╠╩╗║ ║ ║
  ╚╝ ╩╚═╝╚╩╝╚═╝╚═╝ ╩
-  TikTok Viewbot v2.0
-  Auto-Proxy + Multi-Thread
+  TikTok Viewbot v2.1
+  Fixed — Updated UA + Headers
 """
     print(banner)
 
@@ -204,13 +203,22 @@ if __name__ == "__main__":
     with open('config.json') as f:
         config = json.load(f)
 
+    # Load devices (skip comments & invalid lines)
     with open('devices.txt') as f:
-        devices = f.read().splitlines()
+        raw = [l.strip() for l in f if l.strip() and not l.startswith('#')]
+    devices = []
+    for line in raw:
+        parts = line.split(':')
+        if len(parts) >= 4 and len(parts[0]) >= 15 and len(parts[1]) >= 10:
+            devices.append(line)
+    print(f"  📋 {len(devices)} valid devices loaded")
 
     # Fetch & validate proxies
     if config['proxy']['use-proxy']:
-        proxy_format = (f'{config["proxy"]["proxy-type"].lower()}://'
-                        f'{config["proxy"]["credential"] + "@" if config["proxy"]["auth"] else ""}')
+        proxy_format = (
+            f'{config["proxy"]["proxy-type"].lower()}://'
+            f'{config["proxy"]["credential"] + "@" if config["proxy"]["auth"] else ""}'
+        )
         all_proxies = auto_fetch_proxies()
         if all_proxies:
             sample = random.sample(all_proxies, min(MAX_VALIDATE, len(all_proxies)))
@@ -219,11 +227,12 @@ if __name__ == "__main__":
             proxies = online if online else all_proxies
             print(f"  ✅ {len(proxies)} proxy siap digunakan!\n")
         else:
-            print("  ❌ Tidak ada proxy tersedia!")
-            sys.exit(1)
+            print("  ⚠️ Tidak ada proxy, menggunakan koneksi langsung")
+            proxies = []
     else:
         proxy_format = ''
         proxies = []
+        print("  📋 Mode: tanpa proxy\n")
 
     threading.Thread(target=rps_loop, daemon=True).start()
     time.sleep(1)
@@ -232,5 +241,6 @@ if __name__ == "__main__":
     while True:
         device = random.choice(devices)
         if threading.active_count() < 100:
-            did, iid, cdid, openudid = device.split(':')
+            parts = device.split(':')
+            did, iid, cdid, openudid = parts[0], parts[1], parts[2], parts[3]
             threading.Thread(target=send, args=(did, iid, cdid, openudid), daemon=True).start()

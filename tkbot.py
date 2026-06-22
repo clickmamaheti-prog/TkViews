@@ -238,8 +238,9 @@ def rps_loop():
 def run_bot():
     global config, proxies, proxy_format, __aweme_id
 
-    # Auto-detect script directory
-    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    # Auto-detect script directory — resolve symlink if needed
+    SCRIPT_PATH = os.path.realpath(os.path.abspath(__file__))
+    SCRIPT_DIR = os.path.dirname(SCRIPT_PATH)
     os.chdir(SCRIPT_DIR)
 
     banner()

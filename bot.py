@@ -88,6 +88,14 @@ class Gorgon:
 def send(did, iid, cdid, openudid):
     global reqs, _lock, success, fails
     
+    # Multi-endpoint fallback (tercepat duluan)
+    API_ENDPOINTS = [
+        "https://api21.tiktokv.com/aweme/v1/aweme/stats/?",
+        "https://api19-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/?",
+        "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/?",
+        "https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/?",
+    ]
+    
     for x in range(10):
         try:
             params  = f"device_id={did}&iid={iid}&device_type=SM-G973N&app_name=musically_go&host_abi=armeabi-v7a&channel=googleplay&device_platform=android&version_code=160904&device_brand=samsung&os_version=9&aid=1340"
@@ -95,10 +103,9 @@ def send(did, iid, cdid, openudid):
             sig     = Gorgon(params=params, cookies=None, data=None, unix=int(time.time())).get_value()
 
             proxy = random.choice(proxies) if config['proxy']['use-proxy'] else ""
+            api_url = random.choice(API_ENDPOINTS) + params
             response = requests.post(
-                url = (
-                    "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/?" + params
-                ),
+                url = api_url,
                 data    = payload,
                 headers = {'cookie':'sessionid=90c38a59d8076ea0fbc01c8643efbe47','x-gorgon':sig['X-Gorgon'],'x-khronos':sig['X-Khronos'],'user-agent':'okhttp/3.10.0.1'},
                 verify  = False,

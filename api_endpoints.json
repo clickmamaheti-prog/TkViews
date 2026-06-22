@@ -1,0 +1,121 @@
+{
+  "last_update": "2026-06-22 20:41:41 UTC",
+  "total_endpoints": 8,
+  "working_endpoints": 8,
+  "results": [
+    {
+      "url": "https://api21.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.264756,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.312507,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api19-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.615041,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api19-core-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.612664,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.652172,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.658008,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api22-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.703117,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-core-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.772537,
+      "content_length": 0,
+      "working": true
+    }
+  ],
+  "working": [
+    {
+      "url": "https://api21.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.264756,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.312507,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api19-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.615041,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api19-core-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.612664,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-va.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.652172,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.658008,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api22-normal-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.703117,
+      "content_length": 0,
+      "working": true
+    },
+    {
+      "url": "https://api16-core-c-useast1a.tiktokv.com/aweme/v1/aweme/stats/",
+      "status_code": 200,
+      "response_time": 0.772537,
+      "content_length": 0,
+      "working": true
+    }
+  ]
+}

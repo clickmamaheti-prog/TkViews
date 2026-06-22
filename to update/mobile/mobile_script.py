@@ -39,15 +39,15 @@ class Main:
             }
 
             req = requests.post(
-                url = 'https://content-vision.googleapis.com/v1/images:annotate',
-                headers = {
+                url='https://content-vision.googleapis.com/v1/images:annotate',
+                headers={
                     'x-origin': 'https://explorer.apis.google.com',
                 },
-                params = {
+                params={
                     'alt': 'json',
-                    'key': 'AIzaSyAa8yy0GdcGPHdtD083HiGGx_S0vMPScDM',
+                    'key': 'AIzaSyAO_LC_6RWXQScDM',
                 },
-                json = json_data
+                json=json_data
             )
 
             captcha_answer = req.json()['responses'][0]["textAnnotations"][0]["description"]

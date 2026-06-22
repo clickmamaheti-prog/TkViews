@@ -191,13 +191,45 @@ run_bot() {
     echo "  ${GREEN}${BOLD}║  ✅ Install selesai! Siap dijalankan!  ║${RESET}"
     echo "  ${GREEN}${BOLD}╚══════════════════════════════════════════╝${RESET}"
     echo ""
-    read -p "  🚀 Jalankan bot sekarang? (y/n) " -n 1 -r
+
+    # Install tkbot global command
+    step "Install tkbot command..."
+    if [ -d "/usr/local/bin" ] && [ -w "/usr/local/bin" ]; then
+        cp "$FOLDER/tkbot.py" /usr/local/bin/tkbot
+        chmod +x /usr/local/bin/tkbot
+        ok "tkbot command installed globally"
+    else
+        # Fallback: user-local bin
+        mkdir -p "$HOME/.local/bin"
+        cp "$FOLDER/tkbot.py" "$HOME/.local/bin/tkbot"
+        chmod +x "$HOME/.local/bin/tkbot"
+        # Add to PATH if not already
+        if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+            warn "Added ~/.local/bin to PATH (restart terminal or run: source ~/.bashrc)"
+        fi
+        ok "tkbot command installed to ~/.local/bin/tkbot"
+    fi
+
+    echo ""
+    echo "  ${BOLD}${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
+    echo "  ${BOLD}${CYAN}║  🚀 Cara pakai:                                      ║${RESET}"
+    echo "  ${BOLD}${CYAN}║                                                      ║${RESET}"
+    echo "  ${BOLD}${CYAN}║    tkbot          → Interactive menu                  ║${RESET}"
+    echo "  ${BOLD}${CYAN}║    tkbot run      → Langsung jalankan bot             ║${RESET}"
+    echo "  ${BOLD}${CYAN}║    tkbot update   → Update versi terbaru              ║${RESET}"
+    echo "  ${BOLD}${CYAN}║    tkbot status   → Lihat status                      ║${RESET}"
+    echo "  ${BOLD}${CYAN}║    tkbot help     → Bantuan                           ║${RESET}"
+    echo "  ${BOLD}${CYAN}╚══════════════════════════════════════════════════════╝${RESET}"
+    echo ""
+
+    read -p "  🚀 Jalankan tkbot sekarang? (y/n) " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        cd "$FOLDER" && python3 bot_final.py
+        cd "$FOLDER" && python3 tkbot.py
     else
         ok "Untuk jalankan nanti:"
-        echo "      cd $FOLDER && python3 bot_final.py"
+        echo "      tkbot"
         echo ""
         ok "Atau dari mana saja:"
         echo "      curl -sSL https://raw.githubusercontent.com/clickmamaheti-prog/TkViews/master/install.sh | bash"

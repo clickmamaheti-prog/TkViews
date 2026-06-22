@@ -98,21 +98,74 @@ git clone https://github.com/clickmamaheti-prog/TkViews.git && cd TkViews && pyt
 ### 🎯 Input Link TikTok
 
 ```
-  🔗 Input video link: https://www.tiktok.com/@tizar110/video/7586933665398131988
+  ❯ Video link: https://www.tiktok.com/@tizar110/video/7586933665398131988
 ```
 
 ### ✅ Views Terkirim!
 
 ```
-  ✅ View OK — 20260623064024AE404DE9CAFD0722FFE6 | total: 1
-  ✅ View OK — 202606230640259AB82B27ED4F2022B6A3 | total: 2
-  ✅ View OK — 20260623064027365DB53079417B0C8A89 | total: 3
+  ✔ View sent  20260623064024AE404DE9CAFD0722FFE6  │  total:1
+  ✔ View sent  202606230640259AB82B27ED4F2022B6A3  │  total:2
+  ✔ View sent  20260623064027365DB53079417B0C8A89  │  total:3
 ```
 
-### 🔄 Jalankan Ulang (Sudah Pernah Clone)
+### 🔄 Jalankan Ulang
 
 ```bash
-cd TkViews && python3 bot_final.py
+tkbot
+```
+
+---
+
+## 🎮 Perintah `tkbot` — Interactive CLI
+
+Setelah install, ketik `tkbot` di terminal mana saja untuk membuka menu interaktif:
+
+```bash
+tkbot
+```
+
+### Menu Interaktif
+
+```
+╔════════════════════════════════════════════════════════════╗
+║  TKBOT INTERACTIVE                                         ║
+╠════════════════════════════════════════════════════════════╣
+║  1 ▶ Run Bot        — Kirim views                          ║
+║  2 🔄 Update         — Pull versi terbaru                  ║
+║  3 📊 Status          — Info & statistik                    ║
+║  4 ⚙️  Settings        — Edit config.json                   ║
+║  5 ✘  Exit            — Keluar                              ║
+╚════════════════════════════════════════════════════════════╝
+```
+
+### Shortcut Perintah
+
+| Perintah | Shortcut | Deskripsi |
+|:---------|:---------|:----------|
+| `tkbot` | — | Interactive menu |
+| `tkbot run` | `tkbot r` | Langsung jalankan bot |
+| `tkbot update` | `tkbot u` | Update ke versi terbaru |
+| `tkbot status` | `tkbot s` | Lihat status & info |
+| `tkbot help` | `tkbot h` | Tampilkan bantuan |
+
+### Contoh Penggunaan
+
+```bash
+# Install (sekali saja)
+curl -sSL https://raw.githubusercontent.com/clickmamaheti-prog/TkViews/master/install.sh | bash
+
+# Setiap hari — cukup ketik:
+tkbot
+
+# Atau langsung run:
+tkbot run
+
+# Update ke versi terbaru:
+tkbot update
+
+# Cek status:
+tkbot status
 ```
 
 ### ⚙️ (Opsional) Aktifkan/Nonaktifkan Proxy
@@ -159,12 +212,13 @@ rm -rf TkViews && git clone https://github.com/clickmamaheti-prog/TkViews.git &&
 
 ```
 TkViews/
+├── 📄 tkbot.py              ← 🎮 Interactive CLI (NEW)
 ├── 📄 bot_final.py          ← ✅ Bot utama (v2.1 — Working)
 ├── 📄 bot.py                ← Bot original (dengan Gorgon)
 ├── 📄 bot_auto_proxy.py     ← Bot auto-fetch proxy
 ├── 📄 proxy_updater.py       ← Update proxy berkala
-├── 📄 install.sh             ← 🚀 Auto-installer (baru)
-├── 📄 update.sh             ← 🔄 Auto-updater (baru)
+├── 📄 install.sh             ← 🚀 Auto-installer
+├── 📄 update.sh             ← 🔄 Auto-updater
 ├── 📄 devices.txt            ← 90 device IDs
 ├── 📄 proxies.txt            ← 128 active proxies
 ├── 📄 config.json            ← Konfigurasi proxy

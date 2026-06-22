@@ -238,6 +238,10 @@ def rps_loop():
 def run_bot():
     global config, proxies, proxy_format, __aweme_id
 
+    # Auto-detect script directory
+    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(SCRIPT_DIR)
+
     banner()
 
     # ── Input URL ──

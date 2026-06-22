@@ -250,7 +250,8 @@ def run_bot():
     print(f"  {C.CYAN}╠{'═' * W}╣{C.RESET}")
 
     try:
-        link = input(f"  {C.CYAN}║{C.RESET}  {C.PINK}❯{C.RESET} {C.WHITE}Video link: {C.RESET}")
+        print(f"  {C.CYAN}║{C.RESET}  {C.PINK}❯{C.RESET} {C.WHITE}Video link: {C.RESET}", end="", flush=True)
+        link = input()
         __aweme_id = str(
             re.findall(r"(\d{18,19})", link)[0]
             if re.findall(r"(\d{18,19})", link)

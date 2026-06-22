@@ -423,37 +423,53 @@ def interactive_mode():
     print(f"  {C.CYAN}╚{'═' * W}╝{C.RESET}")
     print()
 
-    choice = input(f"  {C.PINK}❯{C.RESET} {C.WHITE}Pilih [1-5]: {C.RESET}").strip()
+    while True:
+        choice = input(f"  {C.PINK}❯{C.RESET} {C.WHITE}Pilih [1-5]: {C.RESET}").strip()
 
-    if choice == "1" or choice.lower() == "r":
-        print()
-        run_bot()
-    elif choice == "2" or choice.lower() == "u":
-        print()
-        cmd_update()
-        input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
-        interactive_mode()
-    elif choice == "3" or choice.lower() == "s":
-        cmd_status()
-        input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
-        interactive_mode()
-    elif choice == "4" or choice.lower() == "e":
-        print()
-        os.system("nano config.json 2>/dev/null || notepad config.json 2>/dev/null || vi config.json")
-        print(f"  {C.GREEN}✅ Config di-update!{C.RESET}")
-        input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
-        interactive_mode()
-    elif choice == "5" or choice.lower() == "q" or choice.lower() == "exit":
-        print()
-        box_top()
-        box_c(f"{C.DIM}Sampai jumpa lagi! 👋{C.RESET}")
-        box_bot()
-        print()
-        sys.exit(0)
-    else:
-        print(f"  {C.RED}❌ Pilihan tidak valid!{C.RESET}")
-        time.sleep(1)
-        interactive_mode()
+        if choice == "1" or choice.lower() == "r":
+            print()
+            run_bot()
+            break
+        elif choice == "2" or choice.lower() == "u":
+            print()
+            cmd_update()
+            input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
+            interactive_mode()
+            break
+        elif choice == "3" or choice.lower() == "s":
+            cmd_status()
+            input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
+            interactive_mode()
+            break
+        elif choice == "4" or choice.lower() == "e":
+            print()
+            os.system("nano config.json 2>/dev/null || notepad config.json 2>/dev/null || vi config.json")
+            print(f"  {C.GREEN}✅ Config di-update!{C.RESET}")
+            input(f"  {C.DIM}Tekan Enter untuk kembali...{C.RESET}")
+            interactive_mode()
+            break
+        elif choice == "5" or choice.lower() == "q" or choice.lower() == "exit":
+            print()
+            box_top()
+            box_c(f"{C.DIM}Sampai jumpa lagi! 👋{C.RESET}")
+            box_bot()
+            print()
+            sys.exit(0)
+        else:
+            print(f"  {C.RED}❌ Pilihan tidak valid!{C.RESET}")
+            time.sleep(1)
+            # Clear screen and redraw
+            banner()
+            print(f"  {C.CYAN}╔{'═' * W}╗{C.RESET}")
+            box_l(f"{C.BOLD}{C.HOT_PINK}  TKBOT INTERACTIVE{C.RESET}")
+            print(f"  {C.CYAN}╠{'═' * W}╣{C.RESET}")
+            box_l(f"{C.GREEN}1{C.RESET} {C.WHITE}▶ Run Bot{C.RESET}        {C.DIM}— Kirim views{C.RESET}")
+            box_l(f"{C.PINK}2{C.RESET} {C.WHITE}🔄 Update{C.RESET}         {C.DIM}— Pull versi terbaru{C.RESET}")
+            box_l(f"{C.CYAN}3{C.RESET} {C.WHITE}📊 Status{C.RESET}          {C.DIM}— Info & statistik{C.RESET}")
+            box_l(f"{C.YELLOW}4{C.RESET} {C.WHITE}⚙️  Settings{C.RESET}        {C.DIM}— Edit config.json{C.RESET}")
+            box_l(f"{C.RED}5{C.RESET} {C.WHITE}✘  Exit{C.RESET}            {C.DIM}— Keluar{C.RESET}")
+            print(f"  {C.CYAN}╚{'═' * W}╝{C.RESET}")
+            print()
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

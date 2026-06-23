@@ -386,15 +386,19 @@ def cmd_update():
             for f in files_changed.split('\n')[:10]:
                 box_l(f"  {C.WHITE}{f}{C.RESET}")
 
-    # Update tkbot global command
+    # Update tkbot global command — jangan overwrite symlink
     box_mid()
-    box_l(f"{C.YELLOW}🔧{C.RESET} {C.WHITE}Updating tkbot command...{C.RESET}")
+    box_l(f"{C.YELLOW}🔧{C.RESET} {C.WHITE}Checking tkbot command...{C.RESET}")
     try:
-        # Copy updated tkbot.py to /usr/local/bin/
-        import shutil
-        shutil.copy2(os.path.join(SCRIPT_DIR, "tkbot.py"), "/usr/local/bin/tkbot")
-        os.chmod("/usr/local/bin/tkbot", 0o755)
-        box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot command updated{C.RESET}")
+        target = os.readlink("/usr/local/bin/tkbot") if os.path.islink("/usr/local/bin/tkbot") else None
+        expected = os.path.join(SCRIPT_DIR, "tkbot.py")
+        if target == expected:
+            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink OK → {target}{C.RESET}")
+        else:
+            # Fix symlink
+            os.remove("/usr/local/bin/tkbot")
+            os.symlink(expected, "/usr/local/bin/tkbot")
+            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink fixed → {expected}{C.RESET}")
     except:
         box_l(f"{C.YELLOW}⚠️{C.RESET} {C.WHITE}Skip (need root for /usr/local/bin){C.RESET}")
 

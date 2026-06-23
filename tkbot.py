@@ -302,6 +302,10 @@ comments_list = [
 def run_feature(feature_func, feature_name):
     global config, proxies, proxy_format, __aweme_id, __author_id, reqs, success_count, fails
 
+    # Auto-detect script directory — resolve symlink if needed
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
+    os.chdir(SCRIPT_DIR)
+
     banner()
 
     print(f"  {C.CYAN}╔{'═' * W}╗{C.RESET}")

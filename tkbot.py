@@ -390,14 +390,14 @@ def cmd_update():
     box_mid()
     box_l(f"{C.YELLOW}🔧{C.RESET} {C.WHITE}Checking tkbot command...{C.RESET}")
     TKBOT_LINK = "/usr/local/bin/tkbot"
-    TKBOT_TARGET = os.path.join(SCRIPT_DIR, "tkbot.py")
+    # Use realpath to get the actual repo directory (resolves symlink)
+    REAL_DIR = os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
+    TKBOT_TARGET = os.path.join(REAL_DIR, "tkbot.py")
     try:
         if os.path.islink(TKBOT_LINK):
-            # Resolve the symlink target to absolute path
-            link_dir = os.path.dirname(TKBOT_LINK)
             target_read = os.readlink(TKBOT_LINK)
             if not os.path.isabs(target_read):
-                target_read = os.path.join(link_dir, target_read)
+                target_read = os.path.join(os.path.dirname(TKBOT_LINK), target_read)
             target_abs = os.path.normpath(target_read)
             expected_abs = os.path.normpath(TKBOT_TARGET)
             if target_abs == expected_abs:
@@ -407,7 +407,6 @@ def cmd_update():
                 os.symlink(TKBOT_TARGET, TKBOT_LINK)
                 box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink fixed{C.RESET}")
         elif os.path.exists(TKBOT_LINK):
-            # It's a regular file (old copy), replace with symlink
             os.remove(TKBOT_LINK)
             os.symlink(TKBOT_TARGET, TKBOT_LINK)
             box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot → symlink created{C.RESET}")

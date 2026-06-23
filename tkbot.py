@@ -386,21 +386,36 @@ def cmd_update():
             for f in files_changed.split('\n')[:10]:
                 box_l(f"  {C.WHITE}{f}{C.RESET}")
 
-    # Update tkbot global command — jangan overwrite symlink
+    # Update tkbot global command — verify symlink points to repo
     box_mid()
     box_l(f"{C.YELLOW}🔧{C.RESET} {C.WHITE}Checking tkbot command...{C.RESET}")
+    TKBOT_LINK = "/usr/local/bin/tkbot"
+    TKBOT_TARGET = os.path.join(SCRIPT_DIR, "tkbot.py")
     try:
-        target = os.readlink("/usr/local/bin/tkbot") if os.path.islink("/usr/local/bin/tkbot") else None
-        expected = os.path.join(SCRIPT_DIR, "tkbot.py")
-        if target == expected:
-            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink OK → {target}{C.RESET}")
+        if os.path.islink(TKBOT_LINK):
+            # Resolve the symlink target to absolute path
+            link_dir = os.path.dirname(TKBOT_LINK)
+            target_read = os.readlink(TKBOT_LINK)
+            if not os.path.isabs(target_read):
+                target_read = os.path.join(link_dir, target_read)
+            target_abs = os.path.normpath(target_read)
+            expected_abs = os.path.normpath(TKBOT_TARGET)
+            if target_abs == expected_abs:
+                box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink OK{C.RESET}")
+            else:
+                os.remove(TKBOT_LINK)
+                os.symlink(TKBOT_TARGET, TKBOT_LINK)
+                box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink fixed{C.RESET}")
+        elif os.path.exists(TKBOT_LINK):
+            # It's a regular file (old copy), replace with symlink
+            os.remove(TKBOT_LINK)
+            os.symlink(TKBOT_TARGET, TKBOT_LINK)
+            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot → symlink created{C.RESET}")
         else:
-            # Fix symlink
-            os.remove("/usr/local/bin/tkbot")
-            os.symlink(expected, "/usr/local/bin/tkbot")
-            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink fixed → {expected}{C.RESET}")
-    except:
-        box_l(f"{C.YELLOW}⚠️{C.RESET} {C.WHITE}Skip (need root for /usr/local/bin){C.RESET}")
+            os.symlink(TKBOT_TARGET, TKBOT_LINK)
+            box_l(f"{C.GREEN}✅{C.RESET} {C.WHITE}tkbot symlink created{C.RESET}")
+    except Exception as e:
+        box_l(f"{C.YELLOW}⚠️{C.RESET} {C.WHITE}Skip: {e}{C.RESET}")
 
     box_bot()
     print()
